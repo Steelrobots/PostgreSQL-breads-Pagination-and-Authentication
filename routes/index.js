@@ -8,6 +8,28 @@ module.exports = function (db) {
     res.render("index");
   });
 
+  router.post('/' , async function(req,res) {
+    try {
+      const {email,password} =req.body;
+      const { rows } = await db.query(`SELECT * FROM "users" WHERE email = $1`, [email]);
+      if(rows.length == 0){
+        console.log(`email doesn't exist`)
+        res.redirect('/')
+      } else{
+        if(!bcrypt.compareSync(password, rows[0].password)){
+          console.log(`password doesn't match`)
+          res.redirect('/')
+        } else{
+          res.send('Login berhasil')
+        }
+      }
+    } catch (error) {
+      
+    }
+    
+
+  })
+
   router.get("/register", (req, res) => {
     res.render("register");
   });
