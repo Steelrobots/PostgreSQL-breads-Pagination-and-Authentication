@@ -6,6 +6,7 @@ var logger = require('morgan');
 var session = require('express-session')
 const { Pool } = require('pg');
 const flash = require('connect-flash')
+const fileUpload = require('express-fileupload')
 
 
 const pool = new Pool({
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use(session({
   secret: 'keyboard cat',

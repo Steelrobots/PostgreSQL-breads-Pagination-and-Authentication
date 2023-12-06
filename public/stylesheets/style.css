@@ -1,18 +1,47 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 15px;
 }
 
 a {
   color: #00B7FF;
 }
+h1 {
+  text-align: center;
+  padding: 10px;
+}
 .container {
   border: 3px;
   margin: auto;
   background-color: whitesmoke;
-  width: 70%;
+  width: 80%;
   border-radius: 5px;
   box-shadow: 0px 0px 2px rgb(167, 167, 167);
+  padding: 0px;
+}
+.profil{
+  border-bottom: 1px solid #CACBCC;
+  padding-bottom: 10px;
+
+}
+#upload img{
+  border-radius: 50%;
+}
+.profil h1{
+ display: inline-block;
+ font-size: x-large;
+ margin: 0px;
+ margin-left: 15px;
+}
+#logout{
+  float: right;
+  padding: 10px 25px 10px 25px;
+  background-color: #6C757E;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+
 }
 
 .inside {
@@ -39,4 +68,213 @@ input {
   border-radius: 8px;
   border-style: solid;
   border-color: whitesmoke;
+}
+.table {
+  background-color: white;
+  padding: 25px 0px 10px;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px 15px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: whitesmoke;
+}
+.rowbirth {
+  box-sizing: border-box;
+  display: block;
+  margin-top: 10px;
+  padding-right: 5px;
+  width: 100%;
+
+}
+
+.rowbirth label {
+  float: left;
+  width: 18%;
+  display: block;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+
+.rowbirth input,
+.rowbirth p {
+  display: inline-block
+}
+
+.birthdate {
+  box-sizing: border-box;
+  display: inline-block;
+  padding-left: 27px;
+  width: 82%;
+}
+
+.birthdate input {
+  width: 40%;
+}
+
+
+.birthdate p {
+  text-align: center;
+  padding: 0px;
+  width: 20%;
+  margin-top: 16px;
+}
+
+.birthdate :first-child {
+  float: left;
+  margin-top: 4px;
+}
+
+.birthdate :last-child {
+  float: right;
+  margin-top: 4px;
+}
+.rowcomplete {
+  box-sizing: border-box;
+  padding: 0px 5px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.rowcomplete label {
+  width: 18%;
+}
+
+.rowcomplete select {
+  float: right;
+  width: 80%;
+  border: 2px solid whitesmoke;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: medium;
+}
+
+.rowradio {
+  padding: 0px;
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rowradio>legend {
+  float: left;
+  padding-left: 5px;
+  width: 18%;
+}
+
+.radio {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.radio .option {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.option input,
+.option label {
+  width: fit-content;
+  display: inline;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.option input {
+  cursor: pointer;
+  accent-color: blue;
+}
+.findcluster {
+  box-sizing: border-box;
+  margin: 20px 10px 0px 0px;
+  border-bottom: 1px solid #CACBCC;
+  padding-bottom: 10px;
+}
+.findcluster button{
+  background-color: #10CAF0;
+    color: black;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: medium;
+    margin: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+}
+.reset{
+  background-color: #FFC007;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    padding-top: 9px;
+    cursor: pointer;
+}
+.update{
+  background-color: #188754;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    padding-top: 9px;
+    cursor: pointer;
+}
+.delete{
+  background-color: #DC3445;
+    color: white;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: medium;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid #CACBCC;
+}
+.footer a{
+  background-color: #0C6DFC;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.inline-form{
+  display: block;
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0px;
+  background-color: white;
+}
+.footer-form {
+  border-top: 1px solid #CACBCC;
 }

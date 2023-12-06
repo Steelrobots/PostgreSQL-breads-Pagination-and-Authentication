@@ -14,7 +14,7 @@ module.exports = function (db) {
     const limit = 5
     const offset = (page - 1) * 5
     let sortMode;
-    const {rows : profil} = await db.query(`SELECT * FROM todos WHERE userid = $1`, [req.session.user.userid])
+    const {rows : profil} = await db.query(`SELECT * FROM "users" WHERE id = $1`, [req.session.user.userid])
 
     params.push(req.session.user.userid)
     paramscount.push(req.session.user.userid)
@@ -73,10 +73,10 @@ module.exports = function (db) {
   });
 
   router.get('/add', isLoggedIn, (req, res) => {
-    res.render('add', { data: {} })
+    res.render('user/add', { data: {} })
   })
   router.post('/add', isLoggedIn, (req, res) => {
-    db.query('INSERT INTO todos(title,userid) values ($1, $2)', [req.body.title, req.session.userid], (err) => {
+    db.query('INSERT INTO todos(title,userid) values ($1, $2)', [req.body.title, req.session.user.userid], (err) => {
       if (err) return res.send(err)
       res.redirect('/')
     })
@@ -100,6 +100,13 @@ module.exports = function (db) {
     })
   })
 
+  router.get('/delete/:index', isLoggedIn, (req,res) =>{
+    const index = req.params.index;
+    db.query(`DELETE FROM todos WHERE id = $1`, [index], (err) =>{
+      if(err) res.send(err)
+      else res.redirect('/')
+    })
+  })
 
   return router
 }
