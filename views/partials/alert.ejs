@@ -1,0 +1,9 @@
+<% if(successInfo.length >0 ){%>
+    <div class="alert alert-succes text-center" role="alert">
+        <%= successInfo%>
+    </div>
+    <%} else if(failedInfo.length >0 ){%>
+        <div class="alert alert-danger text-center" role="alert">
+            <%= failedInfo%>
+        </div>
+        <%}%>
