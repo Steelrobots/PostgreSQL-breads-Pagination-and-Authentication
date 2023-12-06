@@ -1,16 +1,129 @@
 <%- include('../partials/header')%>
-<body>
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-           
-        </div>
-        <div class="card-body">
-                
-        </div>
-        <div class="card-footer">
 
+    <body>
+        <div class="container">
+            <div class="profil">
+                <a href="/logout" id="logout"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i>Sign out</a>
+            </div>
+            <h1>PostgreSQL Bread(Browse, Read, Edit, Add, Delete) and Pagination</h1>
+
+            <form action="" method="get">
+                <input type="hidden" name="page" value="1">
+                <div class="inside">
+                    <div class="inline"> <label for="title">Title</label>
+                        <div class="contain-input"><input type="text" id="title" name="title"
+                                placeholder="insert your title" value="<%= query.title%>"></div>
+                    </div>
+                    <div class="rowbirth"><label for="Deadline">Deadline</label>
+                        <div class="birthdate">
+                            <input type="date" id="strDate" name="strDate" value="<%= query.strDate%>">
+                            <p>s.d</p>
+                            <input type="date" id="endDate" name="endDate" value="<%= query.endDate%>">
+                        </div>
+                    </div>
+                    <div class="rowmarried"><label for="complete">Complete</label>
+
+                        <%if(query.complete==false){ %>
+                            <select name="complete" id="complete">
+                                <option value="" disabled>-select complete-</option>
+                                <option value="false" selected>Not Yet</option>
+                                <option value="true">Done</option>
+                            </select>
+                            <%} else if(query.complete==true){%>
+                                <select name="complete" id="complete">
+                                    <option value="" disabled>-select complete-</option>
+                                    <option value="false">Not Yet</option>
+                                    <option value="true" selected>Done</option>
+                                </select>
+                                <%} else {%>
+                                    <select name="complete" id="complete">
+                                        <option value="" disabled selected>-select complete-</option>
+                                        <option value="false">Not Yet</option>
+                                        <option value="true">Done</option>
+                                    </select>
+                                    <%}%>
+
+                    </div>
+                    <div class="rowradio">
+                        <legend>Operation</legend>
+                        <% if(query.Operator=='OR' ) { %>
+                            <div class="radio">
+                                <div class="option">
+                                    <input type="radio" id="OR" name="Operator" value="OR" checked />OR
+                                </div>
+                                <div class="option">
+                                    <input type="radio" id="AND" name="Operator" value="AND" />AND
+                                </div>
+                            </div>
+                            <% } else if(query.Operator=="AND" ) { %>
+                                <div class="radio">
+                                    <div class="option">
+                                        <input type="radio" id="OR" name="Operator" value="OR" />OR
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" id="AND" name="Operator" checked value="AND" />AND
+                                    </div>
+                                </div>
+                                <% } else { %>
+                                    <div class="radio">
+                                        <div class="option">
+                                            <input type="radio" id="OR" name="Operator" value="OR" checked required />OR
+                                        </div>
+                                        <div class="option">
+                                            <input type="radio" id="AND" name="Operator" value="AND" />AND
+                                        </div>
+                                    </div>
+                                    <% } %>
+                    </div>
+                    <div class="findcluster">
+                        <button type="submit" class="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <a href="/" class="reset"><i class="fa-solid fa-rotate" style="color: #000000;"></i></a>
+                    </div>
+                </div>
+            </form>
+            <div class="table">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Complete</th>
+                            <th>Deadline</th>
+                            <th>Action</th>
+                        </tr>
+    
+                    </thead>
+                    <tbody>
+                        <%data.forEach((item,index)=>{ %>
+    
+                            <tr>
+                                <td>
+                                    <%= index +1 + offset%>
+                                </td>
+                                <td>
+                                    <%= item.title %>
+                                </td>
+                                
+                                <td>
+                                    <%= moment(item.deadline).format("DD MM YYYY HH mm")%>
+                                </td>
+                                <td>
+                                    <%= item.complete ? "Done" : "Not Yet" %>
+                                </td>
+                                <td>
+                                   <a href="/edit/<%= item.id%> " class="update">Update</a>&nbsp <button id="myBtn" class="delete" onclick="opendialog(`<%= item.id%>` , `<%= item.name%>`)">Delete</button>
+                                    
+                                </td>
+    
+                            </tr>
+    
+    
+                            <% }) %>
+                </table>
+               
+            </div>
         </div>
-    </div>
-</div>
+
+
 <%- include('../partials/footer')%>

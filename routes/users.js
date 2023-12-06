@@ -1,6 +1,8 @@
 var express = require('express');
 const { isLoggedIn } = require('../helpers/util');
 var router = express.Router();
+var moment = require('moment'); 
+const path = require('path');
 
 
 module.exports = function (db) {
@@ -13,6 +15,9 @@ module.exports = function (db) {
     const offset = (page - 1) * 5
     let sortMode;
     const {rows : profil} = await db.query(`SELECT * FROM todos WHERE userid = $1`, [req.session.user.userid])
+
+    params.push(req.session.user.userid)
+    paramscount.push(req.session.user.userid)
 
     if (title) {
       queries.push(`title ILIKE '%' || $${params.length} || '%'`);
@@ -38,28 +43,29 @@ module.exports = function (db) {
       params.push(complete)
       paramscount.push(complete)
     }
-    let sqlcount = 'SELECT COUNT (*) as total FROM todos';
-    let sql = 'SELECT * FROM todos'
+    let sqlcount = 'SELECT COUNT (*) as total FROM todos WHERE userid = $1';
+    let sql = 'SELECT * FROM todos WHERE userid = $1'
     if (queries.length > 0) {
       sql += ` WHERE ${queries.join(`${Operator} `)}`
       sqlcount += ` WHERE ${queries.join(`${Operator} `)}`
     }
 
-    params.push(sortBy)
-    sql += `ORDER BY $${sortBy} ${sortMode}`
+    // params.push(sortBy)
+    // sql += `ORDER BY $${sortBy} ${sortMode}`
     // console.log(sql, params)
-    sql += ` ORDER BY id DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2} `;
+    sql += `  ORDER BY id DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2} `;
     params.push(limit, offset)
 
-
+    console.log(sql, params)
     db.query(sqlcount, paramscount, (err, data) => {
       if (err) res.send(err)
       else {
         const total = data.total;
         const pages = Math.ceil(total / limit);
-        db.query(sql, params, (err, data) => {
-          if (err) res.render(err)
-          else res.render('todos', { data, query: req.query, pages, offset, page, url: req.url, user: req.session.user })
+        db.query(sql, params, (err, { rows :data}) => {
+          if (err) res.send(err) 
+          else 
+          res.render('user/list', { data, query: req.query, moment, pages, offset, page, url: req.url, sortMode, profil: profil[0] })
 
         })
       }
@@ -67,7 +73,7 @@ module.exports = function (db) {
   });
 
   router.get('/add', isLoggedIn, (req, res) => {
-    res.render('form', { data: {} })
+    res.render('add', { data: {} })
   })
   router.post('/add', isLoggedIn, (req, res) => {
     db.query('INSERT INTO todos(title,userid) values ($1, $2)', [req.body.title, req.session.userid], (err) => {

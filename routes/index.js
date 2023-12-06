@@ -20,7 +20,7 @@ module.exports = function (db) {
           req.flash('failedInfo', "Password is wrong")
           res.redirect('/')
         } else {
-          req.session.user = { email: rows[0].email, userid: rows[0].userid }
+          req.session.user = { email: rows[0].email, userid: rows[0].id }
           res.redirect('./users')
         }
       }
