@@ -3,9 +3,14 @@
     <body>
         <div class="container">
             <div class="profil">
-                <a href="users/upload" id="upload"><img src="<%= profil.avatar ? `..images/${profil.avatar}` : `../images/default_avatar.jpg`%>" width="70"></a>
-                <h1><%= profil.email%></h1>
-                <a href="/logout" id="logout"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;">&nbsp;</i>Sign
+                <a href="users/upload" id="upload"><img
+                        src="<%= profil.avatar ? `..images/${profil.avatar}` : `../images/default_avatar.jpg`%>"
+                        width="70"></a>
+                <h1>
+                    <%= profil.email%>
+                </h1>
+                <a href="/logout" id="logout"><i class="fa-solid fa-right-from-bracket"
+                        style="color: #ffffff;">&nbsp;</i>Sign
                     out</a>
             </div>
             <h1>PostgreSQL Breads(Browse,Read,Edit,Add,Delete,Sort)</h1>
@@ -19,11 +24,11 @@
                                 placeholder="insert your title" value="<%= query.title%>">
                         </div>
                     </div>
-                    <div class="rowbirth"><label for="birthdate">Birthdate</label>
+                    <div class="rowbirth"><label for="deadline">Deadline</label>
                         <div class="birthdate">
-                            <input type="date" id="strBirth" name="strBirth" value="<%= query.strBirth%>">
+                            <input type="date" id="strDate" name="strDate" value="<%= query.strDate%>">
                             <p>s.d</p>
-                            <input type="date" id="endBirth" name="endBirth" value="<%= query.endBirth%>">
+                            <input type="date" id="endDate" name="endDate" value="<%= query.endDate%>">
                         </div>
                     </div>
                     <div class="rowcomplete"><label for="complete">Complete</label>
@@ -113,12 +118,14 @@
                                     <%= item.complete ? "Done" : "Not Yet" %>
                                 </td>
                                 <td>
-                                    <%= moment(item.deadline).format("DD MMM YYYY HH:mm")%>
+                                    <%= moment(item.deadline).format(" DD MMM YYYY HH:mm")%>
                                 </td>
                                 <td>
-                                    <a href="/edit/<%= item.id%> " class="update"><i class="fa-solid fa-pencil"></i></a>&nbsp <button id="myBtn"
-                                        class="delete"
-                                        onclick="return confirmation('<%= item.title%>')"><i class="fa-solid fa-trash"></i></button>
+                                    <a href="/users/edit/<%= item.id%> " class="update"><i
+                                            class="fa-solid fa-pencil"></i></a>&nbsp <a
+                                        href="/users/delete/<%= item.id%>" class="delete"
+                                        onclick="return confirmation('<%= item.title%>')"><i
+                                            class="fa-solid fa-trash"></i></a>
 
                                 </td>
 

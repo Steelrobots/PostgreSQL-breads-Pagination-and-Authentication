@@ -5,10 +5,12 @@ body {
 a {
   color: #00B7FF;
 }
+
 h1 {
   text-align: center;
   padding: 10px;
 }
+
 .container {
   border: 3px;
   margin: auto;
@@ -18,21 +20,25 @@ h1 {
   box-shadow: 0px 0px 2px rgb(167, 167, 167);
   padding: 0px;
 }
-.profil{
+
+.profil {
   border-bottom: 1px solid #CACBCC;
   padding-bottom: 10px;
 
 }
-#upload img{
+
+#upload img {
   border-radius: 50%;
 }
-.profil h1{
- display: inline-block;
- font-size: x-large;
- margin: 0px;
- margin-left: 15px;
+
+.profil h1 {
+  display: inline-block;
+  font-size: x-large;
+  margin: 0px;
+  margin-left: 15px;
 }
-#logout{
+
+#logout {
   float: right;
   padding: 10px 25px 10px 25px;
   background-color: #6C757E;
@@ -61,6 +67,7 @@ h1 {
   width: 80%;
   resize: vertical;
 }
+
 input {
   width: 100%;
   padding: 10px;
@@ -69,6 +76,7 @@ input {
   border-style: solid;
   border-color: whitesmoke;
 }
+
 .table {
   background-color: white;
   padding: 25px 0px 10px;
@@ -78,16 +86,25 @@ table {
   width: 100%;
   text-align: left;
   border-collapse: collapse;
+  border-style: none;
+}
+tbody, td, tfoot, th, thead, tr {
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
 }
 
 th,
 td {
   padding: 10px 15px;
+  
 }
 
 tbody tr:nth-child(odd) {
   background-color: whitesmoke;
+ 
 }
+
 .rowbirth {
   box-sizing: border-box;
   display: block;
@@ -138,6 +155,7 @@ tbody tr:nth-child(odd) {
   float: right;
   margin-top: 4px;
 }
+
 .rowcomplete {
   box-sizing: border-box;
   padding: 0px 5px;
@@ -162,7 +180,7 @@ tbody tr:nth-child(odd) {
 .rowradio {
   padding: 0px;
   display: block;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -170,6 +188,8 @@ tbody tr:nth-child(odd) {
   float: left;
   padding-left: 5px;
   width: 18%;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .radio {
@@ -195,68 +215,76 @@ tbody tr:nth-child(odd) {
   cursor: pointer;
   accent-color: blue;
 }
+
 .findcluster {
   box-sizing: border-box;
-  margin: 20px 10px 0px 0px;
+  /* margin: 20px 10px 0px 0px; */
   border-bottom: 1px solid #CACBCC;
   padding-bottom: 10px;
 }
-.findcluster button{
+
+.findcluster button {
   background-color: #10CAF0;
-    color: black;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    font-size: medium;
-    margin: 10px;
-    margin-left: 0px;
-    margin-right: 0px;
-    border-radius: 9px;
-    border: none;
-    cursor: pointer;
+  color: black;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: medium;
+  margin: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
 }
-.reset{
+
+.reset {
   background-color: #FFC007;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 9px;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    padding-top: 9px;
-    cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  color: black;
+  text-align: center;
+  padding: 10px;
+  padding-top: 9px;
+  cursor: pointer;
 }
-.update{
+
+.update {
   background-color: #188754;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 9px;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    padding-top: 9px;
-    cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  padding-top: 9px;
+  cursor: pointer;
 }
-.delete{
+
+.delete {
   background-color: #DC3445;
-    color: white;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    font-size: medium;
-    border-radius: 9px;
-    border: none;
-    cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  padding-top: 9px;
+  cursor: pointer;
 }
+
 .footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
   border-top: 1px solid #CACBCC;
 }
-.footer a{
+
+.footer a {
   background-color: #0C6DFC;
   display: inline-block;
   width: 40px;
@@ -268,13 +296,87 @@ tbody tr:nth-child(odd) {
   margin: 10px;
   cursor: pointer;
 }
-.inline-form{
+.pagination {
+  display: flex;
+  margin: 10px 25px;
+  border-radius: 8px;
+  background-color: white;
+  border-collapse: collapse;
+
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 9px 13px;
+  text-decoration: none;
+  color: blue;
+}
+
+.pagenumber {
+  display: inline-block;
+
+
+}
+
+.pagenumber a.active {
+  color: white;
+  background-color: rgb(0, 89, 255);
+  border: 0.5px solid rgb(0, 89, 255);
+}
+
+.inline-form {
   display: block;
   width: 100%;
-  padding: 5px;
-  margin: 10px 0px;
+  padding: 10px 5px 25px;
   background-color: white;
 }
+
+.rowcheckbox {
+  padding: 0px;
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rowcheckbox legend {
+  float: left;
+  padding-left: 5px;
+  width: 18%;
+}
+
+.option input {
+  width: fit-content;
+  display: inline;
+  margin-bottom: 30px;
+  cursor: pointer;
+  accent-color: blue;
+}
+
 .footer-form {
   border-top: 1px solid #CACBCC;
+}
+
+.footer-form button {
+  background-color: #0C6DFC;
+  color: white;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: medium;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.footer-form a {
+  background-color: #FFC007;
+  display: inline-block;
+  border-radius: 9px;
+  color: black;
+  text-align: center;
+  padding: 7px 12px 9px;
+  cursor: pointer;
 }

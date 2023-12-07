@@ -20,34 +20,34 @@ module.exports = function (db) {
     paramscount.push(req.session.user.userid)
 
     if (title) {
-      queries.push(`title ILIKE '%' || $${params.length} || '%'`);
       params.push(title)
       paramscount.push(title)
+      queries.push(`title ILIKE '%' || $${params.length} || '%'`);
     }
     if (strDate && endDate) {
-      queries.push(`deadline BETWEEN $${params.length - 1} AND $${params.length}`);
       params.push(strDate, endDate)
       paramscount.push(strDate, endDate)
+      queries.push(`deadline BETWEEN $${params.length - 1} AND $${params.length}`);
 
     } else if (strDate) {
-      queries.push(`deadline >= $${params.length}`);
       params.push(strDate)
       paramscount.push(strDate)
+      queries.push(`deadline >= $${params.length}`);
     } else if (endDate) {
-      queries.push(`deadline <= $${params.length}`);
       params.push(endDate)
       paramscount.push(endDate)
+      queries.push(`deadline <= $${params.length}`);
     }
     if (complete) {
-      queries.push(`complete = $${params.length}`);
       params.push(complete)
       paramscount.push(complete)
+      queries.push(`complete = $${params.length}`);
     }
     let sqlcount = 'SELECT COUNT (*) as total FROM todos WHERE userid = $1';
     let sql = 'SELECT * FROM todos WHERE userid = $1'
     if (queries.length > 0) {
-      sql += ` WHERE ${queries.join(`${Operator} `)}`
-      sqlcount += ` WHERE ${queries.join(`${Operator} `)}`
+      sql += ` AND ${queries.join(`${Operator} `)}`
+      sqlcount += ` AND ${queries.join(`${Operator} `)}`
     }
 
     // params.push(sortBy)
@@ -78,7 +78,7 @@ module.exports = function (db) {
   router.post('/add', isLoggedIn, (req, res) => {
     db.query('INSERT INTO todos(title,userid) values ($1, $2)', [req.body.title, req.session.user.userid], (err) => {
       if (err) return res.send(err)
-      res.redirect('/')
+      res.redirect('/users')
     })
   })
   router.get('/edit/:index', isLoggedIn,(req,res) =>{
@@ -96,7 +96,7 @@ module.exports = function (db) {
     [title, Boolean(complete), deadline, index ], (err, data) =>{
       if(err){
         res.send(err)
-      } else res.redirect('/')
+      } else res.redirect('/users')
     })
   })
 
@@ -104,7 +104,7 @@ module.exports = function (db) {
     const index = req.params.index;
     db.query(`DELETE FROM todos WHERE id = $1`, [index], (err) =>{
       if(err) res.send(err)
-      else res.redirect('/')
+      else res.redirect('/users')
     })
   })
 
