@@ -1,12 +1,24 @@
 <%- include('../partials/header')%>
-<body>
-    <form ref='uploadForm' 
-			id='uploadForm' 
-			action='/upload' 
-			method='post' 
-			encType="multipart/form-data">
-				<input type="file" name="sampleFile" />
-				<input type='submit' value='Upload!' />
-		</form>		
-</body>
-<%- include('../partials/footer')%>
+
+    <body>
+        <div class="container">
+            <h1>Change Avatar</h1>
+            <form action="" method="post" class="form-edit" enctype="multipart/form-data">
+                <div class="row mb-3 px-3">
+                    <label for="avatar" class="col-sm-2 col-form-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="avatar" class="form-control" id="avatar" placeholder="Choose File" />
+                    </div>
+                </div>
+                <div class="preview">
+                    <p>Preview</p>
+                    <img  src="<%=avatar? '/images/${avatar} : '/images/default_avatar.jpg'%>" alt="avatar" class="img-thumbnail">
+                </div>
+                <div class="footer-form">
+                    <button type="submit"><i class="fa-solid fa-floppy-disk"></i></button>
+                    <a href="/users"><i class="fa-solid fa-rotate-left"></i></a>
+                </div>
+            </form>
+        </div>
+    </body>
+    <%- include('../partials/footer')%>
