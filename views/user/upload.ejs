@@ -12,7 +12,8 @@
                 </div>
                 <div class="preview">
                     <p>Preview</p>
-                    <img  src="<%=avatar? '/images/${avatar} : '/images/default_avatar.jpg'%>" alt="avatar" class="img-thumbnail">
+                    <img src="<%= avatar? `/images/${avatar}` : '/images/default_avatar.jpg' %>" alt="avatar"
+                        class="img-thumbnail" id="preview">
                 </div>
                 <div class="footer-form">
                     <button type="submit"><i class="fa-solid fa-floppy-disk"></i></button>
@@ -21,4 +22,22 @@
             </form>
         </div>
     </body>
-    <%- include('../partials/footer')%>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script>
+        //             document.getElementById('avatar').onchange = function () {
+        //   var src = URL.createObjectURL(this.avatar[0])
+        //   document.getElementById('preview').src = src
+        // }
+        document.getElementById('avatar').addEventListener('change', function (event) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+    </body>
+
+    </html>

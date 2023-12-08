@@ -107,18 +107,17 @@ module.exports = function (db) {
       else res.redirect('/users')
     })
   })
-  router.get('/upload', isLoggedIn, (req, res) => {
-    res.render('user/upload')
+  router.get('/upload', isLoggedIn, async (req, res) => {
+    const { rows: profil } = await db.query(`SELECT * FROM "users" WHERE id = $1`, [req.session.user.userid])
+    res.render('user/upload', {avatar :profil[0].avatar})
   })
   router.post('/upload', isLoggedIn, (req, res) => {
-
-
-    if (!req.files || Object.keys(req.files).length === 0) {
+     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded.');
     }
 
     const avatar = req.files.avatar;
-    const fileName = `${Date.now()}+ "-" + ${avatar.name}`
+    const fileName = `${Date.now()}-${avatar.name}`
     uploadPath = path.join(__dirname, '..', 'public', 'images', fileName);
 
     // Use the mv() method to place the file somewhere on your server

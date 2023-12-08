@@ -380,3 +380,18 @@ tbody tr:nth-child(odd) {
   padding: 7px 12px 9px;
   cursor: pointer;
 }
+.preview{
+  display: inline-block;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.preview p {
+  float: left;
+  width: 18%;
+  margin-left: 15px;
+}
+.preview img{
+  float: left;
+  width: 45%;
+}
