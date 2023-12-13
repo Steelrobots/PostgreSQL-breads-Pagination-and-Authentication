@@ -97,30 +97,39 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Title</th>
-                            <th>Complete</th>
-                            <th>Deadline</th>
+                                <th><a href="/users<%= url.replace(`sortBy=${sortBy}`, `sortBy=title`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"
+                                    style="color: black;"><i
+                                        class="fa-solid fa-<%= sortBy == 'title' ? sortMode == 'asc' ? 'sort-up' : 'sort-down' : 'sort'%>"></i></a>&nbsp;Title
+                            </th>
+                            <th><a href="/users<%= url.replace(`sortBy=${sortBy}`, `sortBy=complete`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"
+                                    style="color: black;"><i
+                                        class="fa-solid fa-<%= sortBy == 'complete' ? sortMode == 'asc' ? 'sort-up' : 'sort-down' : 'sort'%>"></i></a>&nbsp;Complete
+                                    </th>
+                            <th><a href="/users<%= url.replace(`sortBy=${sortBy}`, `sortBy=deadline`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"
+                                    style="color: black;"><i
+                                        class="fa-solid fa-<%= sortBy == 'deadline' ? sortMode == 'asc' ? 'sort-up' : 'sort-down' : 'sort'%>"></i></a>&nbsp;Deadline
+                                    </th>
                             <th>Action</th>
                         </tr>
 
                     </thead>
                     <tbody>
                         <%data.forEach((item,index)=>{ %>
-
+                            <%if(new Date(`${item.deadline}`)< new Date()&& !item.complete){ %>
                             <tr>
-                                <td>
+                                <td style="background-color: #F75352; color: white;">
                                     <%= index +1 + offset%>
                                 </td>
-                                <td>
+                                <td style="background-color: #F75352; color: white;">
                                     <%= item.title %>
                                 </td>
-                                <td>
+                                <td style="background-color: #F75352; color: white;">
                                     <%= item.complete ? "Done" : "Not Yet" %>
                                 </td>
-                                <td>
+                                <td style="background-color: #F75352; color: white;">
                                     <%= moment(item.deadline).format(" DD MMM YYYY HH:mm")%>
                                 </td>
-                                <td>
+                                <td style="background-color: #F75352; color: white;">
                                     <a href="/users/edit/<%= item.id%> " class="update"><i
                                             class="fa-solid fa-pencil"></i></a>&nbsp <a
                                         href="/users/delete/<%= item.id%>" class="delete"
@@ -130,14 +139,55 @@
                                 </td>
 
                             </tr>
+                            <%} else {%>
+                                <tr>
+                                    <td >
+                                        <%= index +1 + offset%>
+                                    </td>
+                                    <td >
+                                        <%= item.title %>
+                                    </td>
+                                    <td >
+                                        <%= item.complete ? "Done" : "Not Yet" %>
+                                    </td>
+                                    <td >
+                                        <%= moment(item.deadline).format(" DD MMM YYYY HH:mm")%>
+                                    </td>
+                                    <td >
+                                        <a href="/users/edit/<%= item.id%> " class="update"><i
+                                                class="fa-solid fa-pencil"></i></a>&nbsp <a
+                                            href="/users/delete/<%= item.id%>" class="delete"
+                                            onclick="return confirmation('<%= item.title%>')"><i
+                                                class="fa-solid fa-trash"></i></a>
+    
+                                    </td>
+    
+                                </tr>
 
 
-                            <% }) %>
+                            <% }}) %>
                 </table>
 
             </div>
             <div class="footer">
-                <a href="/users/add"><i class="fa-solid fa-plus"></i></a>
+                <a href="/users/add" class="footer-add  "><i class="fa-solid fa-plus"></i></a>
+                <div class="pagination">
+                    <% if(url.includes('page=')) { %>
+                        <a href="/users<%= page == 1 ? url.replace(`page=${page}`, `page=1`) : url.replace(`page=${page}`, `page=${page - 1}`) %>">&laquo;</a>
+                    <% } else { %>
+                        <a href="/users/?page=1<%= url.slice(2) %>">&laquo;</a>
+                    <% } %>
+                    <% for(let i = 1; i <= pages; i++) { %>
+                        <a href="/users<%= url.includes('page=') ? url.replace(`page=${page}`, `page=${i}`): `/?page=${i}${'&' + url.slice(2)}` %>" class="<%= i == page? 'active' : '' %>"><%= i %></a>
+                    <% } %> 
+                    <% if(url.includes('page=')) { %>
+                        <a href="/users<%= page == pages ? url.replace(`page=${page}`, `page=${pages}`) : url.replace(`page=${page}`, `page=${page * 1 + 1}`) %>">&raquo;</a>
+                    <% } else { %>
+                        <a href="/users/?page=2<%= url.slice(2) %>">&raquo;</a>
+                    <% } %>
+                </div>
+                   
+            </div>
             </div>
         </div>
 

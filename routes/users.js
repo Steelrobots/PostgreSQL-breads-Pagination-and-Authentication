@@ -7,13 +7,14 @@ const path = require('path');
 
 module.exports = function (db) {
   router.get('/', isLoggedIn, async function (req, res, next) {
-    const { page = 1, title, strDate, endDate, Operator, complete, sortBy } = req.query
+    const { page = 1, title, strDate, endDate, Operator, complete} = req.query
     const queries = []
     const params = []
     const paramscount = []
     const limit = 5
     const offset = (page - 1) * 5
-    let sortMode;
+    const sortBy = ['title', 'complete', 'deadline'].includes(req.query.sortBy) ? req.query.sortBy : 'id'
+    const sortMode = req.query.sortMode === 'asc' ? 'asc' : 'desc';
     const { rows: profil } = await db.query(`SELECT * FROM "users" WHERE id = $1`, [req.session.user.userid])
 
     params.push(req.session.user.userid)
@@ -43,30 +44,28 @@ module.exports = function (db) {
       paramscount.push(complete)
       queries.push(`complete = $${params.length}`);
     }
-    let sqlcount = 'SELECT COUNT (*) as total FROM todos WHERE userid = $1';
-    let sql = 'SELECT * FROM todos WHERE userid = $1'
+    let sqlcount = 'SELECT COUNT (*) AS total FROM todos WHERE userid = $1';
+    let sql = `SELECT * FROM todos WHERE userid = $1`;
     if (queries.length > 0) {
-      sql += ` AND ${queries.join(`${Operator} `)}`
-      sqlcount += ` AND ${queries.join(`${Operator} `)}`
+      sql += ` AND (${queries.join(` ${Operator} `)})`
+      sqlcount += ` AND (${queries.join(` ${Operator} `)})`
     }
 
-    // params.push(sortBy)
-    // sql += `ORDER BY $${sortBy} ${sortMode}`
-    // console.log(sql, params)
-    sql += `  ORDER BY id DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2} `;
+      sql += ` ORDER BY ${sortBy} ${sortMode}`
+      
     params.push(limit, offset)
-
+    sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`; 
     console.log(sql, params)
     db.query(sqlcount, paramscount, (err, data) => {
       if (err) res.send(err)
       else {
-        const total = data.total;
+        const url = req.url == '/' ? `/?page=${page}&sortBy=${sortBy}&sortMode=${sortMode}` : req.url
+        const total = data.rows[0].total;
         const pages = Math.ceil(total / limit);
         db.query(sql, params, (err, { rows: data }) => {
           if (err) res.send(err)
           else
-            res.render('user/list', { data, query: req.query, moment, pages, offset, page, url: req.url, sortMode, profil: profil[0] })
-
+            res.render('user/list', { data, query: req.query, moment, pages, offset, page, url, sortMode, sortBy, profil: profil[0] })
         })
       }
     })
