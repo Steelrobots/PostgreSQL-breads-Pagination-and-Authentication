@@ -33,17 +33,17 @@
                     </div>
                     <div class="rowcomplete"><label for="complete">Complete</label>
 
-                        <%if(query.complete==false){ %>
+                        <%if(query.complete == "true"){ %>
                             <select name="complete" id="complete">
                                 <option value="" disabled>-select complete-</option>
-                                <option value="false" selected>Not Yet</option>
-                                <option value="true">Done</option>
+                                <option value="false" >Not Yet</option>
+                                <option value="true" selected>Done</option>
                             </select>
-                            <%} else if(query.complete==true){%>
+                            <%} else if(query.complete=="false"){%>
                                 <select name="complete" id="complete">
                                     <option value="" disabled>-select complete-</option>
-                                    <option value="false">Not Yet</option>
-                                    <option value="true" selected>Done</option>
+                                    <option value="false" selected>Not Yet</option>
+                                    <option value="true" >Done</option>
                                 </select>
                                 <%} else {%>
                                     <select name="complete" id="complete">
@@ -156,8 +156,8 @@
                                     <td >
                                         <a href="/users/edit/<%= item.id%> " class="update"><i
                                                 class="fa-solid fa-pencil"></i></a>&nbsp <a
-                                            href="/users/delete/<%= item.id%>" class="delete"
-                                            onclick="return confirmation('<%= item.title%>')"><i
+                                            href="#" class="delete"
+                                            onclick="opendialog(`<%= item.id%>` , `<%= item.title%>`)"><i
                                                 class="fa-solid fa-trash"></i></a>
     
                                     </td>
@@ -188,8 +188,21 @@
                 </div>
                    
             </div>
+            <div id="deleteConfirm" class="modal-delete" >
+                <!-- Modal content -->
+                <div class="delete-content">
+                    <div class="delete-header">
+                        <h4>Delete Confirmation</h4>
+                   <span class="close" onclick="closeDialog()">&times;</span></div>
+                   <p id="dialog"></p>
+                   <div class="delete-footer">
+                    <button class="no" onclick="closeDialog()">No</button>
+                   <a href="#" id="confirmed">Yes</a>
+                </div>
+                </div>
             </div>
         </div>
+        
 
 
         <%- include('../partials/footer')%>

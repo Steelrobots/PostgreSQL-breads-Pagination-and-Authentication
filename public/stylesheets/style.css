@@ -419,3 +419,83 @@ tbody tr:nth-child(odd) {
   float: left;
   width: 45%;
 }
+#deleteConfirm {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  
+}
+
+.delete-content {
+  background-color: #fefefe;
+  margin: 15px auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 32%;
+  border-radius: 8px;
+}
+
+h4 {
+  margin-bottom: 0;
+  margin-top: 0px;
+  line-height: 1.5;
+}
+
+#confirmed {
+  background-color: rgb(255, 192, 7);
+  color: black;
+  padding: 5px 30px;
+  margin: 10px 0 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#dialog {
+  padding-left: 20px;
+}
+
+.no {
+  background-color: #6C757D;
+  border: 1px solid #6C757D;
+  padding: 5px 30px;
+  margin: 10px;
+  margin-bottom: 5px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.no:hover {
+  opacity: 1;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.delete-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.delete-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #e9ecef;
+}
