@@ -55,7 +55,7 @@ module.exports = function (db) {
       
     params.push(limit, offset)
     sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`; 
-    console.log(sql, params)
+    // console.log(sql, params)
     db.query(sqlcount, paramscount, (err, data) => {
       if (err) res.send(err)
       else {
