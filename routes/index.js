@@ -25,7 +25,6 @@ module.exports = function (db) {
         }
       }
     } catch (error) {
-      console.log(error)
       res.redirect("/")
     }
 
