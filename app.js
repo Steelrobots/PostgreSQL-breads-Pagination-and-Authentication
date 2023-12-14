@@ -15,7 +15,7 @@ const pool = new Pool({
   database: 'datadb',
   password: '12345',
   port: 5432,
-}) 
+})
 
 var indexRouter = require('./routes/index')(pool); //immediately call
 var usersRouter = require('./routes/users')(pool);
@@ -40,17 +40,25 @@ app.use(session({
   saveUninitialized: true
 }))
 app.use(flash())
+app.use(function (req, res, next) {
+  if (!req.user) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+  }
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

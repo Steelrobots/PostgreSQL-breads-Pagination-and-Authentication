@@ -13,14 +13,14 @@
                 <div class="inline-form">
                     <label for="deadline" class="col-sm-2 col-form-label">Deadline</label>
                     <div class="contain-input"><input type="datetime-local" id="deadline" name="deadline"
-                        value="<%= moment(data[0].deadline).format('YYYY-MM-DDTHH:mm')%>" required>
+                            value="<%= moment(data[0].deadline).format('YYYY-MM-DDTHH:mm')%>" required>
                     </div>
                 </div>
                 <div class="inline-form">
                     <label for="complete" class="col-sm-2 col-form-label">Complete</label>
                     <div class="contain-input">
                         <input class="form-check-input" type="checkbox" id="complete" name="complete"
-                            <%= data[0].complete ? "checked" : "" %>> Done
+                            <%=data[0].complete ? "checked" : "" %>> Done
                     </div>
                 </div>
 

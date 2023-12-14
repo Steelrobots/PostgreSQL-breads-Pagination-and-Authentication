@@ -7,7 +7,7 @@ const path = require('path');
 
 module.exports = function (db) {
   router.get('/', isLoggedIn, async function (req, res, next) {
-    const { page = 1, title, strDate, endDate, Operator, complete} = req.query
+    const { page = 1, title, strDate, endDate, Operator, complete } = req.query
     const queries = []
     const params = []
     const paramscount = []
@@ -26,19 +26,18 @@ module.exports = function (db) {
       queries.push(`title ILIKE '%' || $${params.length} || '%'`);
     }
     if (strDate && endDate) {
-      params.push(strDate, endDate)
-      paramscount.push(strDate, endDate)
-      queries.push(`deadline BETWEEN $${params.length - 1} AND $${params.length}`);
-
+      params.push(strDate, endDate);
+      paramscount.push(strDate, endDate);
+      queries.push(`deadline BETWEEN $${params.length - 1} and $${params.length}::TIMESTAMP + INTERVAL '1 DAY - 1 SECOND'`);
     } else if (strDate) {
-      params.push(strDate)
-      paramscount.push(strDate)
+      params.push(strDate);
+      paramscount.push(strDate);
       queries.push(`deadline >= $${params.length}`);
     } else if (endDate) {
-      params.push(endDate)
-      paramscount.push(endDate)
-      queries.push(`deadline <= $${params.length}`);
-    }
+      params.push(endDate);
+      paramscount.push(endDate);
+      queries.push(`deadline <= $${params.length}::TIMESTAMP + INTERVAL '1 DAY - 1 SECOND'`);
+    };
     if (complete) {
       params.push(complete)
       paramscount.push(complete)
@@ -51,11 +50,10 @@ module.exports = function (db) {
       sqlcount += ` AND (${queries.join(` ${Operator} `)})`
     }
 
-      sql += ` ORDER BY ${sortBy} ${sortMode}`
-      
+    sql += ` ORDER BY ${sortBy} ${sortMode}`
+
     params.push(limit, offset)
-    sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`; 
-    // console.log(sql, params)
+    sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`;
     db.query(sqlcount, paramscount, (err, data) => {
       if (err) res.send(err)
       else {
@@ -108,10 +106,10 @@ module.exports = function (db) {
   })
   router.get('/upload', isLoggedIn, async (req, res) => {
     const { rows: profil } = await db.query(`SELECT * FROM "users" WHERE id = $1`, [req.session.user.userid])
-    res.render('user/upload', {avatar :profil[0].avatar})
+    res.render('user/upload', { avatar: profil[0].avatar })
   })
   router.post('/upload', isLoggedIn, (req, res) => {
-     if (!req.files || Object.keys(req.files).length === 0) {
+    if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded.');
     }
 
